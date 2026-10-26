@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10131d">
+<title>AI Photo Studio Pro</title>
+<style>
+:root{--bg:#0c0e15;--panel:#151925;--panel2:#1e2433;--line:#30384d;--text:#f4f6ff;--muted:#9ba5bd;--accent:#8b5cf6;--cyan:#22d3ee;--good:#4ade80;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:11px;padding:9px 11px;cursor:pointer}button:active{transform:scale(.985)}button:disabled{opacity:.4;cursor:not-allowed}.primary{background:linear-gradient(120deg,#8b5cf6,#4f72f5);border:0;font-weight:750}.ghost{background:transparent}.danger{border-color:#783b4a;color:#ffb4c0}.app{max-width:1500px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 13px;background:#0c0e15ed;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.brand{font-size:17px;font-weight:900;letter-spacing:.1px;white-space:nowrap}.brand span{color:var(--cyan)}.top-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.file-label{display:inline-flex;align-items:center;gap:7px}.file-label input{display:none}.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:12px;padding:12px;flex:1;min-height:0}.stage-area{min-width:0;display:flex;flex-direction:column;gap:9px}.stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:380px;flex:1;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background-color:#121621;background-image:linear-gradient(45deg,#202638 25%,transparent 25%),linear-gradient(-45deg,#202638 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#202638 75%),linear-gradient(-45deg,transparent 75%,#202638 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0;touch-action:pan-y}.empty{text-align:center;color:var(--muted);max-width:330px;padding:24px}.empty .big{font-size:54px}.empty h2{color:var(--text);margin:5px 0 8px}.empty p{font-size:13px}.canvas-holder{display:none;align-items:center;justify-content:center;max-width:100%;max-height:calc(100dvh - 170px);transform-origin:center;transition:transform .08s linear}.canvas-holder canvas{display:block;max-width:100%;max-height:calc(100dvh - 190px);width:auto;height:auto;object-fit:contain;box-shadow:0 15px 45px #0008;touch-action:none}.stage-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.stage-tools button{font-size:12px}.status{position:absolute;left:10px;bottom:10px;background:#080a10d9;border:1px solid var(--line);padding:5px 8px;border-radius:8px;color:var(--muted);font-size:11px;pointer-events:none}.side{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px;min-width:0;align-self:start}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:10px}.tab{font-size:11px;padding:9px 3px}.tab.active{background:#392b60;border-color:#7653d7}.pane{display:none}.pane.active{display:block}.section-title{font-size:13px;font-weight:850;margin:14px 0 8px}.section-title:first-child{margin-top:4px}.field{margin:11px 0}.field label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:#d6dbee;margin-bottom:6px}.field output{color:var(--cyan);font-variant-numeric:tabular-nums}.field input[type=range]{width:100%;accent-color:var(--accent)}input[type=text],input[type=number],input[type=password],select,textarea{width:100%;min-width:0;background:#0e111a;border:1px solid var(--line);border-radius:9px;padding:9px;color:var(--text)}input[type=color]{width:100%;height:39px;border:1px solid var(--line);border-radius:9px;background:#0e111a;padding:3px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.small{font-size:11px;padding:8px 5px}.muted{font-size:11px;color:var(--muted);line-height:1.5}.notice{padding:9px 10px;border:1px solid #55427b;background:#2b2140;border-radius:10px;font-size:12px;line-height:1.5;margin:8px 0}.row{display:flex;gap:7px;align-items:center}.row>*{min-width:0;flex:1}.divider{height:1px;background:var(--line);margin:12px 0}.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 7px;font-size:10px;color:var(--muted)}.preset{min-height:48px}.preset b{display:block;font-size:12px}.preset span{font-size:10px;color:var(--muted)}.bottomnote{text-align:center;padding:0 12px 14px;font-size:11px;color:var(--muted)}.busy{opacity:.6;pointer-events:none}.hidden{display:none!important}.toast{position:fixed;z-index:30;left:50%;bottom:24px;transform:translateX(-50%);background:#252b3b;border:1px solid #46516a;padding:10px 14px;border-radius:12px;box-shadow:0 8px 30px #0008;max-width:90vw;text-align:center}.compare-line{position:absolute;top:0;bottom:0;width:2px;background:white;box-shadow:0 0 0 1px #0008;pointer-events:none}.full .topbar{display:none}.full .layout{grid-template-columns:1fr;padding:5px}.full .side,.full .bottomnote{display:none}.full .stage{height:calc(100dvh - 60px)}.full .canvas-holder canvas{max-height:calc(100dvh - 100px)}body.light{--bg:#f0f2f8;--panel:#fff;--panel2:#edf0f7;--line:#d4d9e6;--text:#171a25;--muted:#626b80}body.light .topbar{background:#f8f9fcf0}body.light .stage{background-color:#e5e8f0}body.light input[type=text],body.light input[type=number],body.light input[type=password],body.light select,body.light textarea{background:#fff;color:#171a25}
+@media(max-width:900px){.layout{grid-template-columns:1fr;padding:8px;gap:8px}.stage{min-height:260px;max-height:58dvh}.canvas-holder canvas{max-height:51dvh}.side{padding:9px}.topbar{padding:9px}.brand{font-size:15px}.top-actions button,.top-actions .file-label{font-size:11px;padding:8px}.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.tab{font-size:10px}.bottomnote{padding-bottom:20px}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header class="topbar">
+  <div class="brand">✦ AI Photo <span>Studio Pro</span></div>
+  <div class="top-actions">
+    <label class="file-label primary"><input id="fileInput" type="file" accept="image/*">＋ Open Photo</label>
+    <button id="undoBtn" title="Undo" disabled>↶</button><button id="redoBtn" title="Redo" disabled>↷</button>
+    <button id="compareBtn" title="Hold to compare" disabled>Before</button>
+    <button id="saveProjectBtn" disabled>Project</button>
+    <button id="exportBtn" class="primary" disabled>Export ↗</button>
+  </div>
+</header>
+<main class="layout">
+<section class="stage-area">
+  <div class="stage" id="stage">
+    <div class="empty" id="empty"><div class="big">🖼️</div><h2>Your creative studio</h2><p>Open a photo to start editing. Your regular edits stay in this browser; no account needed.</p><label class="file-label primary"><input id="fileInput2" type="file" accept="image/*">Choose photo</label><p class="muted">JPG · PNG · WebP</p></div>
+    <div class="canvas-holder" id="canvasHolder"><canvas id="viewCanvas"></canvas></div>
+    <div class="status" id="status">No photo loaded</div>
+  </div>
+  <div class="stage-tools">
+    <button id="zoomOut">−</button><button id="zoomReset">100%</button><button id="zoomIn">＋</button>
+    <button id="fullBtn">⛶ Full screen</button><button id="autoBtn" disabled>✨ Auto enhance</button>
+    <button id="resetBtn" disabled>Reset edits</button>
+    <span class="badge" id="zoomLabel">Preview 100%</span>
+  </div>
+</section>
+<aside class="side">
+  <div class="tabs">
+    <button class="tab active" data-pane="basic">🎚 Basic</button><button class="tab" data-pane="color">🎨 Color</button><button class="tab" data-pane="looks">✨ Looks</button><button class="tab" data-pane="tools">🛠 Tools</button>
+    <button class="tab" data-pane="selective">◉ Masks</button><button class="tab" data-pane="portrait">🙂 Portrait</button><button class="tab" data-pane="ai">✦ AI tools</button><button class="tab" data-pane="export">⬇ Export</button>
+  </div>
+  <div class="pane active" id="basic">
+    <div class="section-title">Light</div>
+    <div class="field"><label>Exposure <output id="exposureOut">0</output></label><input data-setting="exposure" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Brightness <output id="brightnessOut">100%</output></label><input data-setting="brightness" type="range" min="0" max="200" value="100"></div>
+    <div class="field"><label>Contrast <output id="contrastOut">100%</output></label><input data-setting="contrast" type="range" min="0" max="200" value="100"></div>
+    <div class="field"><label>Highlights <output id="highlightsOut">0</output></label><input data-setting="highlights" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Shadows <output id="shadowsOut">0</output></label><input data-setting="shadows" type="range" min="-100" max="100" value="0"></div>
+    <div class="grid2"><div class="field"><label>Whites <output id="whitesOut">0</output></label><input data-setting="whites" type="range" min="-100" max="100" value="0"></div><div class="field"><label>Blacks <output id="blacksOut">0</output></label><input data-setting="blacks" type="range" min="-100" max="100" value="0"></div></div>
+    <div class="section-title">Presence</div>
+    <div class="field"><label>Saturation <output id="saturationOut">100%</output></label><input data-setting="saturation" type="range" min="0" max="200" value="100"></div>
+    <div class="field"><label>Vibrance <output id="vibranceOut">0</output></label><input data-setting="vibrance" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Clarity <output id="clarityOut">0</output></label><input data-setting="clarity" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Sharpness <output id="sharpnessOut">0</output></label><input data-setting="sharpness" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Dehaze <output id="dehazeOut">0</output></label><input data-setting="dehaze" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Fade <output id="fadeOut">0</output></label><input data-setting="fade" type="range" min="0" max="100" value="0"></div>
+    <div class="section-title">White balance</div>
+    <div class="field"><label>Temperature <output id="temperatureOut">0</output></label><input data-setting="temperature" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Tint <output id="tintOut">0</output></label><input data-setting="tint" type="range" min="-100" max="100" value="0"></div>
+    <div class="grid2"><button id="straightenL">Rotate −90°</button><button id="straightenR">Rotate +90°</button><button id="flipH">Flip horizontal</button><button id="flipV">Flip vertical</button></div>
+  </div>
+  <div class="pane" id="color">
+    <div class="section-title">HSL / Color mixer</div>
+    <div class="field"><label>Hue <output id="hueOut">0°</output></label><input data-setting="hue" type="range" min="-180" max="180" value="0"></div>
+    <div class="field"><label>HSL saturation <output id="hslSatOut">0</output></label><input data-setting="hslSat" type="range" min="-100" max="100" value="0"></div>
+    <div class="field"><label>Luminance <output id="luminanceOut">0</output></label><input data-setting="luminance" type="range" min="-100" max="100" value="0"></div>
+    <div class="section-title">RGB balance / split tone</div>
+    <div class="field"><label>Red balance <output id="redOut">0</output></label><input data-setting="red" type="range" min="-60" max="60" value="0"></div>
+    <div class="field"><label>Green balance <output id="greenOut">0</output></label><input data-setting="green" type="range" min="-60" max="60" value="0"></div>
+    <div class="field"><label>Blue balance <output id="blueOut">0</output></label><input data-setting="blue" type="range" min="-60" max="60" value="0"></div>
+    <div class="grid2"><div class="field"><label>Shadow tone</label><input id="shadowColor" type="color" value="#182b5b"></div><div class="field"><label>Highlight tone</label><input id="highlightColor" type="color" value="#ffb36b"></div></div>
+    <div class="field"><label>Split toning amount <output id="splitToneOut">0%</output></label><input data-setting="splitTone" type="range" min="0" max="100" value="0"></div>
+    <div class="section-title">Color grading</div>
+    <div class="field"><label>Cinematic teal-orange <output id="tealOrangeOut">0%</output></label><input data-setting="tealOrange" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Vignette <output id="vignetteOut">0</output></label><input data-setting="vignette" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Film grain <output id="grainOut">0</output></label><input data-setting="grain" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Glow / bloom <output id="glowOut">0</output></label><input data-setting="glow" type="range" min="0" max="100" value="0"></div>
+  </div>
+  <div class="pane" id="looks">
+    <div class="section-title">One-tap looks</div><div class="grid3">
+      <button class="preset" data-preset="original"><b>Original</b><span>Clean</span></button><button class="preset" data-preset="cinematic"><b>Cinematic</b><span>Teal / orange</span></button><button class="preset" data-preset="hdr"><b>HDR style</b><span>Detailed</span></button>
+      <button class="preset" data-preset="vintage"><b>Vintage</b><span>Warm retro</span></button><button class="preset" data-preset="moody"><b>Moody</b><span>Dark contrast</span></button><button class="preset" data-preset="warm"><b>Warm</b><span>Golden</span></button>
+      <button class="preset" data-preset="cool"><b>Cool</b><span>Blue</span></button><button class="preset" data-preset="matte"><b>Matte</b><span>Soft blacks</span></button><button class="preset" data-preset="portrait"><b>Portrait</b><span>Soft skin look</span></button>
+      <button class="preset" data-preset="landscape"><b>Landscape</b><span>Vivid greens</span></button><button class="preset" data-preset="night"><b>Night</b><span>Low-key</span></button><button class="preset" data-preset="bw"><b>B&W</b><span>Mono</span></button>
+    </div>
+    <div class="section-title">Custom presets</div>
+    <div class="row"><input id="presetName" type="text" placeholder="Preset name"><button id="savePreset">Save</button></div>
+    <div class="row" style="margin-top:7px"><select id="presetList"><option value="">Choose saved preset</option></select><button id="loadPreset">Load</button></div>
+    <div class="grid2" style="margin-top:7px"><button id="exportPresets">Export presets</button><label class="file-label"><input id="importPresets" type="file" accept="application/json,.json">Import presets</label></div>
+    <div class="section-title">Compare</div><p class="muted">Press and hold the Before button in the top bar to view the unedited photo. Release to return to edits.</p>
+  </div>
+  <div class="pane" id="tools">
+    <div class="section-title">Crop & composition</div>
+    <div class="field"><label>Aspect ratio</label><select id="cropRatio"><option value="original">Original</option><option value="1:1">1:1 Square</option><option value="4:5">4:5 Portrait</option><option value="3:4">3:4 Portrait</option><option value="9:16">9:16 Reel / Story</option><option value="16:9">16:9 YouTube</option><option value="3:2">3:2 Photo</option><option value="custom">Custom crop</option></select></div>
+    <div class="grid2"><div class="field"><label>Width px</label><input id="cropW" type="number" min="1" max="12000"></div><div class="field"><label>Height px</label><input id="cropH" type="number" min="1" max="12000"></div></div>
+    <div class="grid2"><button id="applyCrop" class="primary">Apply crop / size</button><button id="resetCrop">Reset crop</button></div>
+    <div class="section-title">Text, stickers & watermark</div>
+    <div class="field"><label>Text</label><input id="overlayText" type="text" placeholder="Add title or watermark"></div>
+    <div class="grid2"><div class="field"><label>Text color</label><input id="overlayColor" type="color" value="#ffffff"></div><div class="field"><label>Font size</label><input id="overlaySize" type="number" min="8" max="250" value="48"></div></div>
+    <div class="grid2"><div class="field"><label>Font</label><select id="overlayFont"><option>Arial</option><option>Georgia</option><option>Impact</option><option>system-ui</option><option>monospace</option></select></div><div class="field"><label>Position</label><select id="overlayPosition"><option value="bottom">Bottom center</option><option value="center">Center</option><option value="top">Top center</option></select></div></div>
+    <div class="grid2"><button id="addText" class="primary">Add text</button><button id="addSticker">Add ⭐ sticker</button></div>
+    <div class="section-title">Frame / background</div>
+    <div class="grid2"><div class="field"><label>Frame color</label><input id="frameColor" type="color" value="#ffffff"></div><div class="field"><label>Frame width</label><input id="frameWidth" type="number" min="0" max="200" value="0"></div></div>
+    <div class="grid2"><div class="field"><label>Canvas background</label><input id="bgColor" type="color" value="#ffffff"></div><button id="applyBg">Set background</button></div>
+    <div class="section-title">Draw / selective brush</div>
+    <div class="grid2"><button id="brushMode">Brush: Off</button><button id="eraseMode">Eraser: Off</button></div>
+    <div class="grid2"><div class="field"><label>Brush color</label><input id="brushColor" type="color" value="#ff2d75"></div><div class="field"><label>Brush size</label><input id="brushSize" type="number" min="1" max="100" value="12"></div></div>
+    <p class="muted">Draw directly on the photo. Brush strokes are included in export.</p>
+    <div class="section-title">Collage & platform sizes</div>
+    <div class="grid2"><button data-size="1280x720">YouTube thumbnail</button><button data-size="1080x1920">Reel / Story</button><button data-size="1080x1080">Instagram post</button><button data-size="1080x1350">Instagram portrait</button><button data-size="1080x566">Wide post</button><button data-size="1240x1754">A4 portrait</button></div>
+  </div>
+  <div class="pane" id="selective">
+    <div class="section-title">Selective adjustments</div>
+    <div class="notice">Brush mode lets you paint directly on the image. Gradient and radial masks are visual overlays in this lightweight editor; advanced semantic subject/sky/skin selection requires a segmentation model.</div>
+    <div class="grid2"><button id="linearMask">Linear gradient mask</button><button id="radialMask">Radial mask</button><button id="invertMask">Invert mask</button><button id="clearMask">Clear mask</button></div>
+    <div class="field"><label>Mask strength <output id="maskStrengthOut">50%</output></label><input id="maskStrength" type="range" min="0" max="100" value="50"></div>
+    <div class="section-title">Background / subject tools</div>
+    <div class="grid2"><button id="bgOnly">Background adjustment hint</button><button id="subjectHint">Subject selection hint</button><button id="skyHint">Sky selection hint</button><button id="skinHint">Skin selection hint</button></div>
+    <p class="muted">Semantic selection buttons explain model requirements rather than pretending to isolate pixels without a segmentation model.</p>
+  </div>
+  <div class="pane" id="portrait">
+    <div class="section-title">Portrait retouching</div>
+    <div class="field"><label>Skin softening <output id="skinSmoothOut">0</output></label><input data-setting="skinSmooth" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Eye/detail pop <output id="eyeDetailOut">0</output></label><input data-setting="eyeDetail" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Face light <output id="faceLightOut">0</output></label><input data-setting="faceLight" type="range" min="0" max="100" value="0"></div>
+    <div class="field"><label>Portrait background blur <output id="portraitBlurOut">0</output></label><input data-setting="portraitBlur" type="range" min="0" max="20" value="0"></div>
+    <div class="grid2"><button id="teethHint">Teeth whitening guide</button><button id="blemishHint">Blemish removal guide</button></div>
+    <p class="muted">These sliders provide global portrait-style processing. Accurate face/skin/teeth detection requires a face-landmark or segmentation model.</p>
+  </div>
+  <div class="pane" id="ai">
+    <div class="section-title">AI photo tools</div>
+    <div class="notice">AI background removal uses an online model and may need a modern browser, internet and memory. The other advanced AI features need a connected model/API to do genuine semantic edits.</div>
+    <button id="removeBg" class="primary" style="width:100%">✂ Remove background (AI)</button><p id="aiStatus" class="muted">No AI job running.</p>
+    <div class="divider"></div>
+    <div class="grid2"><button id="blurBg">Background blur effect</button><button id="restoreOld">Old-photo tone repair</button><button id="denoise">Noise reduction</button><button id="upscale2x">2× upscale</button><button id="objectRemove">AI object removal</button><button id="skyReplace">Sky replacement</button><button id="relight">Portrait relight</button><button id="enhanceAi">AI enhance</button></div>
+    <div class="section-title">Optional AI API</div>
+    <div class="field"><label>Endpoint URL</label><input id="aiEndpoint" type="text" placeholder="https://your-service.example/edit"></div>
+    <div class="field"><label>API key (optional)</label><input id="aiKey" type="password" placeholder="Stored only in this page session"></div>
+    <p class="muted">To wire a real AI service, the endpoint must accept an image upload and return an edited image. Never paste a secret key into a public/shared HTML file.</p>
+    <button id="sendAi" style="width:100%">Send image to configured AI endpoint</button>
+  </div>
+  <div class="pane" id="export">
+    <div class="section-title">Export image</div>
+    <div class="field"><label>Format</label><select id="exportFormat"><option value="image/jpeg">JPEG</option><option value="image/png">PNG (transparency)</option><option value="image/webp">WebP</option></select></div>
+    <div class="field"><label>Quality <output id="qualityOut">92%</output></label><input id="quality" type="range" min="40" max="100" value="92"></div>
+    <div class="field"><label>Output width (px)</label><input id="exportW" type="number" min="1" max="12000" placeholder="Original"></div>
+    <div class="field"><label>Output height (px)</label><input id="exportH" type="number" min="1" max="12000" placeholder="Original"></div>
+    <div class="grid2"><button id="downloadBtn" class="primary">Download image</button><button id="copyImage">Copy image</button></div>
+    <div class="section-title">Project files</div>
+    <div class="grid2"><button id="saveProject">Save project JSON</button><label class="file-label"><input id="loadProject" type="file" accept=".json,application/json">Load project</label></div>
+    <div class="section-title">Metadata</div>
+    <label class="row" style="font-size:12px"><input type="checkbox" id="stripMeta" checked style="flex:0"> Export without original EXIF metadata</label>
+    <p class="muted">Canvas export normally strips original EXIF metadata. Export dimensions and final file size are shown below.</p>
+    <div class="notice" id="exportInfo">No export generated yet.</div>
+    <button id="saveRecent" style="width:100%">Save current project to Recent</button>
+  </div>
+</aside>
+</main>
+<div class="bottomnote">AI Photo Studio Pro · Local-first editor · Advanced AI features depend on an external model/API.</div>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script>
+(() => {
+'use strict';
+const $=id=>document.getElementById(id);
+const canvas=$('viewCanvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});
+const stateDefaults={
+ exposure:0,brightness:100,contrast:100,highlights:0,shadows:0,whites:0,blacks:0,saturation:100,vibrance:0,clarity:0,sharpness:0,dehaze:0,fade:0,temperature:0,tint:0,hue:0,hslSat:0,luminance:0,red:0,green:0,blue:0,splitTone:0,tealOrange:0,vignette:0,grain:0,glow:0,skinSmooth:0,eyeDetail:0,faceLight:0,portraitBlur:0
+};
+let settings={...stateDefaults}, originalImage=null, sourceCanvas=null, sourceCtx=null, rotation=0, flipX=1, flipY=1, presetName='Original', textLayers=[], brushStrokes=[], backgroundColor=null, frameColor='#ffffff', frameWidth=0, history=[], future=[], zoom=1, beforeMode=false, drawMode='off', drawing=false, currentStroke=null, maskMode='', maskInvert=false, maskStrength=50, lastExportBlob=null, lastRender=null;
+let renderQueued=false, isLoading=false;
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.add('hidden'),2800)}
+function hasImage(){return !!sourceCanvas}
+function cloneState(){return {settings:{...settings},rotation,flipX,flipY,presetName,textLayers:JSON.parse(JSON.stringify(textLayers)),brushStrokes:JSON.parse(JSON.stringify(brushStrokes)),backgroundColor,frameColor,frameWidth,cropRatio:$('cropRatio').value,cropW:$('cropW').value,cropH:$('cropH').value}}
+function pushHistory(){if(!hasImage())return;history.push(cloneState());if(history.length>25)history.shift();future=[];updateHistoryButtons()}
+function applyState(s){settings={...stateDefaults,...s.settings};rotation=s.rotation||0;flipX=s.flipX||1;flipY=s.flipY||1;presetName=s.presetName||'Original';textLayers=s.textLayers||[];brushStrokes=s.brushStrokes||[];backgroundColor=s.backgroundColor||null;frameColor=s.frameColor||'#fff';frameWidth=s.frameWidth||0;if(s.cropRatio)$('cropRatio').value=s.cropRatio;if(s.cropW)$('cropW').value=s.cropW;if(s.cropH)$('cropH').value=s.cropH;syncControls();render()}
+function undo(){if(!history.length)return;future.push(cloneState());applyState(history.pop());updateHistoryButtons()}
+function redo(){if(!future.length)return;history.push(cloneState());applyState(future.pop());updateHistoryButtons()}
+function updateHistoryButtons(){$('undoBtn').disabled=!history.length;$('redoBtn').disabled=!future.length}
+function syncControls(){Object.keys(settings).forEach(k=>{const el=document.querySelector(`[data-setting="${k}"]`);if(el)el.value=settings[k];const out=$(k+'Out');if(out){let suffix=['brightness','contrast','saturation'].includes(k)?'%':k==='hue'?'°':k==='splitTone'||k==='tealOrange'?'%':'';out.textContent=settings[k]+suffix}});$('maskStrength').value=maskStrength;$('maskStrengthOut').textContent=maskStrength+'%';$('qualityOut').textContent=$('quality').value+'%'}
+function updateHistoryButtonsAndRender(){updateHistoryButtons();scheduleRender()}
+function loadFile(file){if(!file)return;if(!file.type.startsWith('image/'))return toast('Please choose an image file.');isLoading=true;const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{sourceCanvas=document.createElement('canvas');sourceCanvas.width=img.naturalWidth;sourceCanvas.height=img.naturalHeight;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(img,0,0);originalImage=document.createElement('canvas');originalImage.width=sourceCanvas.width;originalImage.height=sourceCanvas.height;originalImage.getContext('2d').drawImage(sourceCanvas,0,0);rotation=0;flipX=flipY=1;settings={...stateDefaults};textLayers=[];brushStrokes=[];backgroundColor=null;frameWidth=0;history=[];future=[];presetName='Original';$('cropW').value=img.naturalWidth;$('cropH').value=img.naturalHeight;$('exportW').value=img.naturalWidth;$('exportH').value=img.naturalHeight;$('empty').classList.add('hidden');$('canvasHolder').style.display='flex';['exportBtn','compareBtn','saveProjectBtn','resetBtn','autoBtn','downloadBtn'].forEach(id=>$(id).disabled=false);$('status').textContent=`${img.naturalWidth} × ${img.naturalHeight} px`;URL.revokeObjectURL(url);isLoading=false;syncControls();render();saveRecentMeta(file.name);toast('Photo loaded.');};img.onerror=()=>{URL.revokeObjectURL(url);isLoading=false;toast('Could not open this image.')};img.src=url}
+$('fileInput').onchange=e=>loadFile(e.target.files[0]);$('fileInput2').onchange=e=>loadFile(e.target.files[0]);
+function scheduleRender(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render()})}
+function rgb(hex){const n=parseInt(hex.replace('#',''),16);return [(n>>16)&255,(n>>8)&255,n&255]}
+function clamp(v){return Math.max(0,Math.min(255,v))}
+function adjustPixelData(imageData){const d=imageData.data,s=settings;const exp=Math.pow(2,s.exposure/100);const sat=s.saturation/100;const hslSat=1+s.hslSat/100;const temp=s.temperature/100,tint=s.tint/100;const teal=s.tealOrange/100;const split=s.splitTone/100;const sh=rgb($('shadowColor').value),hi=rgb($('highlightColor').value);const contrast=s.contrast/100;const vibr=s.vibrance/100;
+ for(let i=0;i<d.length;i+=4){let r=d[i],g=d[i+1],b=d[i+2];r*=exp;g*=exp;b*=exp;
+ r=(r-128)*contrast+128;g=(g-128)*contrast+128;b=(b-128)*contrast+128;
+ const lum=.2126*r+.7152*g+.0722*b;const shadow=Math.max(0,(128-lum)/128),high=Math.max(0,(lum-128)/127);
+ const shadowAdj=s.shadows/100*shadow*70, highAdj=s.highlights/100*high*65;
+ r+=shadowAdj+highAdj+s.blacks/100*30*(1-lum/255)+s.whites/100*30*(lum/255);
+ g+=shadowAdj+highAdj+s.blacks/100*30*(1-lum/255)+s.whites/100*30*(lum/255);
+ b+=shadowAdj+highAdj+s.blacks/100*30*(1-lum/255)+s.whites/100*30*(lum/255);
+ r+=s.red*.8+temp*24-tint*7;g+=s.green*.8+tint*18;b+=s.blue*.8-temp*24-tint*7;
+ const gray=.299*r+.587*g+.114*b;const vibFactor=1+vibr*(1-Math.min(1,Math.abs(gray-128)/128));r=gray+(r-gray)*sat*hslSat*vibFactor;g=gray+(g-gray)*sat*hslSat*vibFactor;b=gray+(b-gray)*sat*hslSat*vibFactor;
+ // lightweight teal-orange split toning
+ const y=.299*r+.587*g+.114*b;const shw=Math.max(0,1-y/170)*split, hiw=Math.max(0,(y-80)/175)*split;
+ r=r*(1-teal*.18*shw)+sh[0]*teal*.18*shw+hi[0]*teal*.17*hiw;
+ g=g*(1-teal*.18*shw)+sh[1]*teal*.18*shw+hi[1]*teal*.17*hiw;
+ b=b*(1-teal*.18*shw)+sh[2]*teal*.18*shw+hi[2]*teal*.17*hiw;
+ if(s.fade){const f=s.fade/100*28;r=r*(1-s.fade/300)+f;g=g*(1-s.fade/300)+f;b=b*(1-s.fade/300)+f}
+ if(s.dehaze){const k=s.dehaze/100*.25;r=(r-128)*(1+k)+128;g=(g-128)*(1+k)+128;b=(b-128)*(1+k)+128}
+ if(s.clarity){const k=s.clarity/100*.12;r+=(r-gray)*k*3;g+=(g-gray)*k*3;b+=(b-gray)*k*3}
+ if(s.glow){const glow=s.glow/100*18;r+=glow*Math.max(0,(r-170)/85);g+=glow*Math.max(0,(g-170)/85);b+=glow*Math.max(0,(b-170)/85)}
+ if(s.skinSmooth){const mix=s.skinSmooth/100*.08;r=r*(1-mix)+gray*mix;g=g*(1-mix)+gray*mix;b=b*(1-mix)+gray*mix}
+ if(s.eyeDetail){const k=s.eyeDetail/100*.1;r=(r-128)*(1+k)+128;g=(g-128)*(1+k)+128;b=(b-128)*(1+k)+128}
+ if(s.faceLight){const add=s.faceLight/100*18;r+=add;g+=add;b+=add}
+ // hue rotation approximated by CSS-independent HSL conversion
+ if(s.hue||s.luminance){let max=Math.max(r,g,b)/255,min=Math.min(r,g,b)/255,h=0,sl=0,l=(max+min)/2,delta=max-min;if(delta){sl=delta/(1-Math.abs(2*l-1));if(max===r/255)h=((g-b)/255/delta)%6;else if(max===g/255)h=(b-r)/255/delta+2;else h=(r-g)/255/delta+4;h*=60;if(h<0)h+=360;h=(h+s.hue+360)%360;sl=Math.max(0,Math.min(1,sl));l=Math.max(0,Math.min(1,l+s.luminance/100*.3));const c=(1-Math.abs(2*l-1))*sl,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let rr=0,gg=0,bb=0;if(h<60){rr=c;gg=x}else if(h<120){rr=x;gg=c}else if(h<180){gg=c;bb=x}else if(h<240){gg=x;bb=c}else if(h<300){rr=x;bb=c}else{rr=c;bb=x}r=(rr+m)*255;g=(gg+m)*255;b=(bb+m)*255}}
+ d[i]=clamp(r);d[i+1]=clamp(g);d[i+2]=clamp(b);
+ }
+ return imageData}
+function render(){if(!hasImage())return;let w=sourceCanvas.width,h=sourceCanvas.height;const rotated=rotation%180!==0;canvas.width=rotated?h:w;canvas.height=rotated?w:h;ctx.save();ctx.translate(canvas.width/2,canvas.height/2);ctx.rotate(rotation*Math.PI/180);ctx.scale(flipX,flipY);
+ const temp=document.createElement('canvas');temp.width=w;temp.height=h;const tc=temp.getContext('2d',{willReadFrequently:true});tc.drawImage(sourceCanvas,0,0);let id=tc.getImageData(0,0,w,h);adjustPixelData(id);tc.putImageData(id,0,0);ctx.filter=`blur(${Math.max(0,settings.portraitBlur/4)}px)`;ctx.drawImage(temp,-w/2,-h/2);ctx.filter='none';ctx.restore();
+ if(presetName==='bw'){const id2=ctx.getImageData(0,0,canvas.width,canvas.height),d=id2.data;for(let i=0;i<d.length;i+=4){const y=.299*d[i]+.587*d[i+1]+.114*d[i+2];d[i]=d[i+1]=d[i+2]=y}ctx.putImageData(id2,0,0)}
+ if(presetName==='vintage'){ctx.fillStyle='rgba(180,110,35,.12)';ctx.fillRect(0,0,canvas.width,canvas.height)}if(presetName==='cool'){ctx.fillStyle='rgba(35,100,255,.09)';ctx.fillRect(0,0,canvas.width,canvas.height)}if(presetName==='warm'){ctx.fillStyle='rgba(255,145,30,.1)';ctx.fillRect(0,0,canvas.width,canvas.height)}if(presetName==='moody'){ctx.fillStyle='rgba(8,12,35,.12)';ctx.fillRect(0,0,canvas.width,canvas.height)}if(presetName==='matte'){ctx.fillStyle='rgba(205,190,170,.08)';ctx.fillRect(0,0,canvas.width,canvas.height)}if(presetName==='cinematic'){ctx.fillStyle='rgba(0,120,150,.07)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='rgba(255,100,20,.04)';ctx.fillRect(0,0,canvas.width,canvas.height)}
+ if(backgroundColor){ctx.save();ctx.globalCompositeOperation='destination-over';ctx.fillStyle=backgroundColor;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore()}
+ if(settings.vignette){const g=ctx.createRadialGradient(canvas.width/2,canvas.height/2,Math.min(canvas.width,canvas.height)*.18,canvas.width/2,canvas.height/2,Math.max(canvas.width,canvas.height)*.72);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(0,0,0,${settings.vignette/100*.75})`);ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height)}
+ if(settings.grain){const step=Math.max(1,Math.round(5-settings.grain/30));ctx.save();ctx.globalAlpha=settings.grain/100*.14;for(let i=0;i<canvas.width*canvas.height/step/step;i++){const x=Math.random()*canvas.width,y=Math.random()*canvas.height;ctx.fillStyle=Math.random()>.5?'#fff':'#000';ctx.fillRect(x,y,step,step)}ctx.restore()}
+ if(frameWidth>0){ctx.save();ctx.strokeStyle=frameColor;ctx.lineWidth=frameWidth*2;ctx.strokeRect(frameWidth,frameWidth,canvas.width-frameWidth*2,canvas.height-frameWidth*2);ctx.restore()}
+ for(const t of textLayers){ctx.save();ctx.font=`${t.bold?'bold':'normal'} ${t.size}px ${t.font}`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=Math.max(2,t.size/16);ctx.strokeStyle=t.outline||'#000b';ctx.fillStyle=t.color;let y=t.position==='top'?canvas.height*.12:t.position==='center'?canvas.height*.5:canvas.height*.88;ctx.strokeText(t.text,canvas.width/2,y);ctx.fillText(t.text,canvas.width/2,y);ctx.restore()}
+ for(const st of brushStrokes){ctx.save();ctx.globalCompositeOperation=st.erase?'destination-out':'source-over';ctx.strokeStyle=st.color;ctx.lineWidth=st.size;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();st.points.forEach((p,i)=>i?ctx.lineTo(p.x*canvas.width,p.y*canvas.height):ctx.moveTo(p.x*canvas.width,p.y*canvas.height));ctx.stroke();ctx.restore()}
+ if(maskMode){ctx.save();ctx.globalAlpha=maskStrength/100*.22;const grad=maskMode==='linear'?ctx.createLinearGradient(0,0,canvas.width,canvas.height):ctx.createRadialGradient(canvas.width/2,canvas.height/2,10,canvas.width/2,canvas.height/2,Math.max(canvas.width,canvas.height)/2);grad.addColorStop(0,maskInvert?'transparent':'#22d3ee');grad.addColorStop(1,maskInvert?'#22d3ee':'transparent');ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore()}
+ lastRender=canvas.toDataURL('image/jpeg',.85);$('status').textContent=`${canvas.width} × ${canvas.height} px · ${presetName}`;fitCanvas()}
+function fitCanvas(){const holder=$('canvasHolder');holder.style.transform=`scale(${zoom})`;holder.style.width='auto';$('zoomLabel').textContent='Preview '+Math.round(zoom*100)+'%';$('zoomReset').textContent=Math.round(zoom*100)+'%'}
+function setZoom(v){zoom=Math.max(.35,Math.min(3,v));fitCanvas()}
+function applyPreset(name){pushHistory();presetName=name;const p={original:{},cinematic:{contrast:115,saturation:112,tealOrange:65,vignette:18},hdr:{contrast:125,clarity:35,sharpness:25,saturation:112},vintage:{temperature:35,fade:24,saturation:82,grain:16},moody:{exposure:-15,contrast:125,saturation:82,vignette:34,shadows:-10},warm:{temperature:36,saturation:108},cool:{temperature:-35,tint:5},matte:{fade:28,contrast:90,blacks:25,saturation:86},portrait:{brightness:104,contrast:95,skinSmooth:18,faceLight:10,saturation:105},landscape:{vibrance:42,saturation:118,clarity:25,dehaze:18},night:{exposure:-22,contrast:120,saturation:90,vignette:28},bw:{saturation:0}}[name]||{};settings={...stateDefaults,...p};syncControls();render()}
+function autoEnhance(){if(!hasImage())return;pushHistory();settings.exposure=5;settings.contrast=112;settings.vibrance=18;settings.shadows=18;settings.highlights=-12;settings.clarity=8;settings.dehaze=5;presetName='Auto Enhance';syncControls();render();toast('Auto enhance applied.')}
+function rotate(deg){pushHistory();rotation=(rotation+deg+360)%360;render()}
+function cropCanvas(){if(!hasImage())return;pushHistory();let w=Number($('cropW').value)||canvas.width,h=Number($('cropH').value)||canvas.height;w=Math.min(12000,Math.max(1,w));h=Math.min(12000,Math.max(1,h));const ratio=$('cropRatio').value;if(ratio!=='original'&&ratio!=='custom'){const [a,b]=ratio.split(':').map(Number);if(w/h>a/b)w=Math.round(h*a/b);else h=Math.round(w*b/a)}const out=document.createElement('canvas');out.width=w;out.height=h;const oc=out.getContext('2d');if(backgroundColor){oc.fillStyle=backgroundColor;oc.fillRect(0,0,w,h)}const scale=Math.max(w/canvas.width,h/canvas.height);const dw=canvas.width*scale,dh=canvas.height*scale;oc.drawImage(canvas,(w-dw)/2,(h-dh)/2,dw,dh);sourceCanvas=out;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});originalImage=document.createElement('canvas');originalImage.width=w;originalImage.height=h;originalImage.getContext('2d').drawImage(out,0,0);rotation=0;flipX=flipY=1;settings={...stateDefaults};textLayers=[];brushStrokes=[];presetName='Original';syncControls();render();$('exportW').value=w;$('exportH').value=h;toast('Crop / size applied.')}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+async function exportImage(){if(!hasImage())return;let out=canvas;const w=Number($('exportW').value)||canvas.width,h=Number($('exportH').value)||canvas.height;if(w!==canvas.width||h!==canvas.height){out=document.createElement('canvas');out.width=Math.min(12000,Math.max(1,w));out.height=Math.min(12000,Math.max(1,h));out.getContext('2d').drawImage(canvas,0,0,out.width,out.height)}const type=$('exportFormat').value,q=Number($('quality').value)/100;out.toBlob(blob=>{if(!blob)return toast('Export failed. Try a smaller resolution.');lastExportBlob=blob;const ext=type==='image/png'?'png':type==='image/webp'?'webp':'jpg';$('exportInfo').textContent=`${out.width} × ${out.height} px · ${(blob.size/1024).toFixed(1)} KB · ${type}`;downloadBlob(blob,'ai-photo-studio-pro.'+ext)},type,q)}
+function saveProjectFile(){if(!hasImage())return;const obj={version:1,state:cloneState(),image:sourceCanvas.toDataURL('image/png'),original:originalImage?originalImage.toDataURL('image/png'):null};downloadBlob(new Blob([JSON.stringify(obj)],{type:'application/json'}),'photo-studio-project.json')}
+function loadProjectFile(file){const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);const im=new Image();im.onload=()=>{sourceCanvas=document.createElement('canvas');sourceCanvas.width=im.width;sourceCanvas.height=im.height;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(im,0,0);if(o.original){const oi=new Image();oi.onload=()=>{originalImage=document.createElement('canvas');originalImage.width=oi.width;originalImage.height=oi.height;originalImage.getContext('2d').drawImage(oi,0,0);applyState(o.state);afterLoad()} ;oi.src=o.original}else{originalImage=sourceCanvas;applyState(o.state);afterLoad()}};im.src=o.image}catch(e){toast('Invalid project file.')}};r.readAsText(file)}
+function afterLoad(){$('empty').classList.add('hidden');$('canvasHolder').style.display='flex';['exportBtn','compareBtn','saveProjectBtn','resetBtn','autoBtn','downloadBtn'].forEach(id=>$(id).disabled=false);history=[];future=[];updateHistoryButtons();render()}
+function saveRecentMeta(name){try{localStorage.setItem('aps_recent_meta',JSON.stringify({name:name||'Photo project',date:new Date().toISOString()}))}catch(e){}}
+function saveRecent(){if(!hasImage())return;try{const item={state:cloneState(),image:sourceCanvas.toDataURL('image/jpeg',.9),original:originalImage?originalImage.toDataURL('image/jpeg',.9):null};localStorage.setItem('aps_recent',JSON.stringify(item));toast('Recent project saved in this browser.')}catch(e){toast('Image is too large for browser storage. Use Save project JSON instead.')}}
+function loadRecent(){try{const raw=localStorage.getItem('aps_recent');if(!raw)return toast('No recent project saved yet.');const o=JSON.parse(raw);const im=new Image();im.onload=()=>{sourceCanvas=document.createElement('canvas');sourceCanvas.width=im.width;sourceCanvas.height=im.height;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(im,0,0);const oi=new Image();oi.onload=()=>{originalImage=document.createElement('canvas');originalImage.width=oi.width;originalImage.height=oi.height;originalImage.getContext('2d').drawImage(oi,0,0);applyState(o.state);afterLoad()};oi.src=o.original||o.image};im.src=o.image}catch(e){toast('Could not load recent project.')}}
+function setCompare(on){if(!hasImage())return;beforeMode=on;if(on&&originalImage){canvas.width=originalImage.width;canvas.height=originalImage.height;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(originalImage,0,0);$('status').textContent='Before · original photo'}else render()}
+$('compareBtn').addEventListener('pointerdown',e=>{e.preventDefault();setCompare(true)});['pointerup','pointercancel','pointerleave'].forEach(ev=>$('compareBtn').addEventListener(ev,()=>setCompare(false)));
+function brushPoint(e){const r=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}}
+canvas.addEventListener('pointerdown',e=>{if(drawMode==='off'||!hasImage())return;drawing=true;canvas.setPointerCapture(e.pointerId);pushHistory();currentStroke={color:$('brushColor').value,size:Math.max(1,Number($('brushSize').value)||12),erase:drawMode==='erase',points:[brushPoint(e)]};brushStrokes.push(currentStroke);render()});
+canvas.addEventListener('pointermove',e=>{if(!drawing||!currentStroke)return;currentStroke.points.push(brushPoint(e));render()});
+canvas.addEventListener('pointerup',()=>{drawing=false;currentStroke=null});
+function toggleDraw(mode){drawMode=drawMode===mode?'off':mode;$('brushMode').textContent='Brush: '+(drawMode==='brush'?'On':'Off');$('eraseMode').textContent='Eraser: '+(drawMode==='erase'?'On':'Off');toast(drawMode==='off'?'Drawing disabled':'Draw on the photo with your finger or mouse.')}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('active',x.id===b.dataset.pane))});
+document.querySelectorAll('[data-setting]').forEach(el=>el.addEventListener('input',()=>{if(!hasImage())return;const k=el.dataset.setting;settings[k]=Number(el.value);const out=$(k+'Out');if(out){const suffix=['brightness','contrast','saturation'].includes(k)?'%':k==='hue'?'°':k==='splitTone'||k==='tealOrange'?'%':'';out.textContent=el.value+suffix}scheduleRender()}));document.querySelectorAll('[data-setting]').forEach(el=>el.addEventListener('change',()=>{if(hasImage())pushHistory()}));
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>applyPreset(b.dataset.preset));
+$('undoBtn').onclick=undo;$('redoBtn').onclick=redo;$('autoBtn').onclick=autoEnhance;$('resetBtn').onclick=()=>{if(!hasImage())return;pushHistory();settings={...stateDefaults};rotation=0;flipX=flipY=1;textLayers=[];brushStrokes=[];backgroundColor=null;frameWidth=0;presetName='Original';syncControls();render();toast('Edits reset.')};
+$('straightenL').onclick=()=>rotate(-90);$('straightenR').onclick=()=>rotate(90);$('flipH').onclick=()=>{pushHistory();flipX*=-1;render()};$('flipV').onclick=()=>{pushHistory();flipY*=-1;render()};
+$('cropRatio').onchange=()=>{if(!hasImage())return;const r=$('cropRatio').value;if(r==='original'){$('cropW').value=canvas.width;$('cropH').value=canvas.height;return}if(r==='custom')return;const [a,b]=r.split(':').map(Number);let w=canvas.width,h=Math.round(w*b/a);if(h>canvas.height){h=canvas.height;w=Math.round(h*a/b)}$('cropW').value=w;$('cropH').value=h};
+$('applyCrop').onclick=cropCanvas;$('resetCrop').onclick=()=>{if(!hasImage())return;$('cropRatio').value='original';$('cropW').value=canvas.width;$('cropH').value=canvas.height;toast('Crop dimensions reset; press Apply to confirm.')};
+document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{const [w,h]=b.dataset.size.split('x');$('cropW').value=w;$('cropH').value=h;$('cropRatio').value='custom';$('exportW').value=w;$('exportH').value=h;toast('Output size selected. Press Apply crop / size or Export.')});
+$('addText').onclick=()=>{if(!hasImage())return toast('Open a photo first.');const text=$('overlayText').value.trim();if(!text)return toast('Enter text first.');pushHistory();textLayers.push({text,color:$('overlayColor').value,size:Math.max(8,Math.min(250,Number($('overlaySize').value)||48)),font:$('overlayFont').value,position:$('overlayPosition').value,bold:true,outline:'#000b'});render();toast('Text added.')};
+$('addSticker').onclick=()=>{if(!hasImage())return;pushHistory();textLayers.push({text:'⭐',color:'#ffffff',size:Math.max(32,Number($('overlaySize').value)||48),font:'system-ui',position:'center',bold:false,outline:'#0000'});render()};
+$('applyBg').onclick=()=>{pushHistory();backgroundColor=$('bgColor').value;render()};
+$('brushMode').onclick=()=>toggleDraw('brush');$('eraseMode').onclick=()=>toggleDraw('erase');
+$('frameWidth').onchange=()=>{pushHistory();frameWidth=Math.max(0,Math.min(200,Number($('frameWidth').value)||0));frameColor=$('frameColor').value;render()};$('frameColor').onchange=()=>{frameColor=$('frameColor').value;render()};
+$('zoomIn').onclick=()=>setZoom(zoom+.15);$('zoomOut').onclick=()=>setZoom(zoom-.15);$('zoomReset').onclick=()=>setZoom(1);
+$('fullBtn').onclick=()=>{$('app').classList.toggle('full');$('fullBtn').textContent=$('app').classList.contains('full')?'⤢ Exit full screen':'⛶ Full screen'};
+$('compareBtn').disabled=true;$('saveProjectBtn').onclick=saveProjectFile;$('saveProject').onclick=saveProjectFile;$('loadProject').onchange=e=>{if(e.target.files[0])loadProjectFile(e.target.files[0])};$('exportBtn').onclick=exportImage;$('downloadBtn').onclick=exportImage;$('quality').oninput=()=>{$('qualityOut').textContent=$('quality').value+'%'};
+$('saveRecent').onclick=saveRecent;$('saveProjectBtn').onclick=saveProjectFile;
+$('savePreset').onclick=()=>{const name=$('presetName').value.trim();if(!name)return toast('Enter a preset name.');let list={};try{list=JSON.parse(localStorage.getItem('aps_presets')||'{}')}catch(e){}list[name]={settings:{...settings},presetName};try{localStorage.setItem('aps_presets',JSON.stringify(list));refreshPresets();toast('Preset saved locally.')}catch(e){toast('Could not save preset in browser storage.')}};
+function refreshPresets(){let list={};try{list=JSON.parse(localStorage.getItem('aps_presets')||'{}')}catch(e){}$('presetList').innerHTML='<option value="">Choose saved preset</option>'+Object.keys(list).map(n=>`<option>${n.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}</option>`).join('')}
+$('loadPreset').onclick=()=>{const n=$('presetList').value;if(!n)return;let list=JSON.parse(localStorage.getItem('aps_presets')||'{}');if(!list[n])return;pushHistory();settings={...stateDefaults,...list[n].settings};presetName=n;syncControls();render()};
+$('exportPresets').onclick=()=>{let d=localStorage.getItem('aps_presets')||'{}';downloadBlob(new Blob([d],{type:'application/json'}),'photo-studio-presets.json')};
+$('importPresets').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const incoming=JSON.parse(r.result),old=JSON.parse(localStorage.getItem('aps_presets')||'{}');localStorage.setItem('aps_presets',JSON.stringify({...old,...incoming}));refreshPresets();toast('Presets imported.')}catch(err){toast('Invalid preset JSON.')}};r.readAsText(f)};
+$('removeBg').onclick=async()=>{if(!hasImage())return toast('Open a photo first.');const btn=$('removeBg'),st=$('aiStatus');btn.disabled=true;st.textContent='Loading online background-removal model…';try{const mod=await import('https://esm.sh/@imgly/background-removal@1.5.5');const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));const result=await mod.removeBackground(blob,{output:{format:'image/png'}});const url=URL.createObjectURL(result),img=new Image();img.onload=()=>{pushHistory();sourceCanvas=document.createElement('canvas');sourceCanvas.width=img.width;sourceCanvas.height=img.height;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(img,0,0);originalImage=document.createElement('canvas');originalImage.width=img.width;originalImage.height=img.height;originalImage.getContext('2d').drawImage(img,0,0);settings={...stateDefaults};presetName='Original';textLayers=[];brushStrokes=[];backgroundColor=null;render();URL.revokeObjectURL(url);st.textContent='Background removed. Export as PNG to preserve transparency.';btn.disabled=false};img.onerror=()=>{throw Error('Image could not be loaded')};img.src=url}catch(e){console.error(e);st.textContent='Removal failed: internet, browser support or device memory may be insufficient.';toast('AI background removal could not run.')}finally{btn.disabled=false}};
+$('blurBg').onclick=()=>{if(!hasImage())return;pushHistory();settings.portraitBlur=Math.min(20,settings.portraitBlur+5);syncControls();render();toast('Blur effect applied globally; subject isolation needs a segmentation model.')};
+$('restoreOld').onclick=()=>{if(!hasImage())return;pushHistory();settings.saturation=75;settings.contrast=110;settings.fade=5;settings.vibrance=12;presetName='Old Photo Repair';syncControls();render();toast('Basic tone repair applied. Scratches/face restoration need an AI model.')};
+$('denoise').onclick=()=>{if(!hasImage())return;pushHistory();settings.skinSmooth=Math.max(settings.skinSmooth,20);settings.clarity=Math.min(settings.clarity,-10);syncControls();render();toast('Lightweight smoothing applied; advanced denoise requires a model.')};
+$('upscale2x').onclick=()=>{if(!hasImage())return;const w=Math.min(12000,canvas.width*2),h=Math.min(12000,canvas.height*2);$('exportW').value=w;$('exportH').value=h;document.querySelector('[data-pane="export"]').click();toast('2× output dimensions selected. This resizes pixels, not AI super-resolution.')};
+$('objectRemove').onclick=()=>toast('True AI object removal needs an inpainting model/API. Use the brush tool to mark an area or configure your endpoint below.');
+$('skyReplace').onclick=()=>toast('Sky selection/replacement needs a segmentation model. Add a background replacement model through the AI endpoint.');
+$('relight').onclick=()=>{if(!hasImage())return;pushHistory();settings.faceLight=Math.min(100,settings.faceLight+20);syncControls();render();toast('Global relight applied. Face-aware relighting needs a face model.')};
+$('enhanceAi').onclick=autoEnhance;
+$('bgOnly').onclick=()=>toast('Background-only adjustments require a subject segmentation mask. The current brush/mask tools are available for manual selection.');
+$('subjectHint').onclick=()=>toast('Subject selection needs an image segmentation model/API.');
+$('skyHint').onclick=()=>toast('Sky selection needs an image segmentation model/API.');
+$('skinHint').onclick=()=>toast('Skin selection needs a skin/face segmentation model/API.');
+$('teethHint').onclick=()=>toast('Automatic teeth whitening needs face/teeth detection. Use a small brush stroke with a low-opacity color as a manual workaround.');
+$('blemishHint').onclick=()=>toast('Blemish removal needs an inpainting/clone tool. The current brush can paint over small spots, but it is not content-aware.');
+$('linearMask').onclick=()=>{maskMode=maskMode==='linear'?'':'linear';render();toast(maskMode?'Linear mask preview enabled':'Mask preview cleared')};
+$('radialMask').onclick=()=>{maskMode=maskMode==='radial'?'':'radial';render();toast(maskMode?'Radial mask preview enabled':'Mask preview cleared')};
+$('invertMask').onclick=()=>{maskInvert=!maskInvert;render()};$('clearMask').onclick=()=>{maskMode='';maskInvert=false;render()};
+$('maskStrength').oninput=()=>{maskStrength=Number($('maskStrength').value);$('maskStrengthOut').textContent=maskStrength+'%';render()};
+$('sendAi').onclick=async()=>{if(!hasImage())return toast('Open a photo first.');const endpoint=$('aiEndpoint').value.trim();if(!endpoint)return toast('Enter an AI endpoint URL first.');try{const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));const fd=new FormData();fd.append('image',blob,'image.png');const headers={};if($('aiKey').value)headers.Authorization='Bearer '+$('aiKey').value;$('aiStatus').textContent='Sending image to configured endpoint…';const response=await fetch(endpoint,{method:'POST',headers,body:fd});if(!response.ok)throw Error('HTTP '+response.status);const out=await response.blob();if(!out.type.startsWith('image/'))throw Error('Endpoint did not return an image');const url=URL.createObjectURL(out),img=new Image();img.onload=()=>{pushHistory();sourceCanvas=document.createElement('canvas');sourceCanvas.width=img.width;sourceCanvas.height=img.height;sourceCtx=sourceCanvas.getContext('2d',{willReadFrequently:true});sourceCtx.drawImage(img,0,0);originalImage=document.createElement('canvas');originalImage.width=img.width;originalImage.height=img.height;originalImage.getContext('2d').drawImage(img,0,0);settings={...stateDefaults};textLayers=[];brushStrokes=[];presetName='AI Result';render();URL.revokeObjectURL(url);$('aiStatus').textContent='AI result loaded.'};img.src=url}catch(e){$('aiStatus').textContent='AI request failed: '+e.message+'. Check endpoint, CORS and expected response format.';toast('AI endpoint request failed.') }};
+$('copyImage').onclick=async()=>{if(!hasImage())return;try{const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);toast('Image copied to clipboard.')}catch(e){toast('Clipboard image copy is not supported here. Download instead.')}};
+$('saveProjectBtn').disabled=true;$('exportBtn').disabled=true;$('autoBtn').disabled=true;$('resetBtn').disabled=true;$('downloadBtn').disabled=true;$('compareBtn').disabled=true;
+refreshPresets();
+try{const m=localStorage.getItem('aps_recent_meta');if(m){const data=JSON.parse(m);const b=document.createElement('button');b.textContent='Recent';b.onclick=loadRecent;$('topbar');document.querySelector('.top-actions').insertBefore(b,$('exportBtn'))}}catch(e){}
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();redo()}});
+})();
+</script>
+</body>
+</html>
